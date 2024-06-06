@@ -1,268 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tap-Tap Game</title>
-    <style>
-       .bottom-menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 64px;
-  z-index: 9999; /* Ensure it's above other content */
-}
-
-        .menu-item {
-            text-align: center;
-            text-decoration: none;
-            color: #828282;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-        }
-
-        .menu-item.active {
-            color: #1976D2; /* Active menu item color */
-        }
-
-        .menu-item i {
-            font-size: 24px;
-        }
-
-        .menu-item span {
-            font-size: 12px;
-            margin-top: 4px;
-        }
-
-        .menu-item:hover {
-            color: #1976D2; /* Hover color */
-        }
-
-        body {
-            background: #000;
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #coinCounter {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #828282;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .plusOne {
-            position: absolute;
-            color: #fff;
-            font-weight: bold;
-            opacity: 1;
-            transition: top 0.2s linear, opacity 0.2s linear;
-            z-index: 2; /* Bring to top */
-        }
-
-        *,
-        ::before,
-        ::after {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: black;
-        }
-
-        .container {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .blackhole {
-            width: 16em;
-            height: 16em;
-        }
-
-        .blackhole .megna {
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            background: linear-gradient(#ff4500, #ff4500, #ff9900);
-            box-shadow: 0 0 60px 30px #fcbd3e, /* inner white */ 0 0 100px 60px #fd7a4d,
-            /* middle magenta */ 0 0 140px 90px #ff0b6b; /* outer cyan */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .blackhole .black {
-            width: 96%;
-            height: 96%;
-            border-radius: 100%;
-            background-color: black;
-            background-image: url(image2.jpg);
-            background-size: contain;
-            transform: rotate(0deg);
-            animation: hole 0.1s linear infinite normal;
-        }
-         .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('background-image.jpg') no-repeat center center;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .progress-bar-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background-color: #1976D2;
-            width: 0%;
-        }
-    </style>
-</head>
-<body onload="expandScreen()">
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body onload="expandScreen()">
     <div class="loading-screen" id="loadingScreen">
-    <div class="progress-bar-container">
+      <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
+        <h1>Cat Kombat</h1>
+        <p style="opacity: 0.7; margin: 0 15px 0px 15px; font-weight: 500">
+          Unleash your inner warrior and tap your way to glory in the ultimate
+          cat combat game, where every victory brings you closer to treasure on
+          the TON chain!
+        </p>
+      </div>
+      <span class="nowLoadingText" style="bottom: 90px !important"
+        >Stay tuned</span
+      >
+      <div class="social-icons" style="position: absolute; bottom: 35px">
+        <a href="https://twitter.com" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://telegram.org" target="_blank">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://yourwebsite.com" target="_blank">
+          <i class="fas fa-globe"></i>
+        </a>
+      </div>
+      <span class="nowLoadingText">Now loading . . .</span>
     </div>
-</div>
-    <div id="content" style="display:none;">
- <div class="container">
-    <div id="coinCounter">Coins: <span id="coins">0</span></div>
-    <div class="blackhole">
-        <div class="megna">
+    <div id="content" style="display: none">
+      <div class="container">
+        <div id="coinCounter">Coins: <span id="coins">0</span></div>
+        <div class="blackhole" id="blackhole">
+          <div class="megna">
             <div id="gameArea" class="black"></div>
+          </div>
         </div>
+      </div>
+
+      <div class="bottom-menu">
+        <a href="#" class="menu-item active">
+          <i class="material-icons">home</i>
+          <span>Home</span>
+        </a>
+        <a href="#" class="menu-item">
+          <i class="material-icons">search</i>
+          <span>Search</span>
+        </a>
+        <a href="#" class="menu-item">
+          <i class="material-icons">Home</i>
+          <span></span>
+        </a>
+        <a href="#" class="menu-item">
+          <i class="material-icons">person</i>
+          <span>Profile</span>
+        </a>
+        <a href="#" class="menu-item">
+          <i class="material-icons">person</i>
+          <span>Profile</span>
+        </a>
+      </div>
     </div>
-</div>
+    <script>
+      document
+        .getElementById("blackhole")
+        .addEventListener("touchstart", function (e) {
+          var touch = e.touches[0];
+          var rect = this.getBoundingClientRect();
+          var x = touch.clientX - rect.left - rect.width / 2;
+          var y = touch.clientY - rect.top - rect.height / 2;
 
-<div class="bottom-menu">
-    <a href="#" class="menu-item active">
-        <i class="material-icons">home</i>
-        <span>Home</span>
-    </a>
-    <a href="#" class="menu-item">
-        <i class="material-icons">search</i>
-        <span>Search</span>
-    </a>
-    <a href="#" class="menu-item">
-        <i class="material-icons">Home</i>
-        <span></span>
-    </a>
-    <a href="#" class="menu-item">
-        <i class="material-icons">person</i>
-        <span>Profile</span>
-    </a>
-    <a href="#" class="menu-item">
-        <i class="material-icons">person</i>
-        <span>Profile</span>
-    </a>
-</div>
-</div>
+          this.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+          this.classList.add("tinted");
+        });
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Simulate loading progress
-        var progressBar = document.getElementById('progressBar');
-        var width = 0;
-        var interval = setInterval(function () {
-            if (width >= 100) {
-                clearInterval(interval);
-                document.getElementById('loadingScreen').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            } else {
-                width++;
-                progressBar.style.width = width + '%';
-            }
-        }, 90);
-    });
-</script>
-<script>
-function expandScreen(){
-    window.Telegram.WebApp.expand()
-}
-
-    function updateBlur(coins) {
-        // Adjust blur based on number of coins
-        var blurRadius = 57 - coins; // Reverse blur effect
-        document.getElementById('gameArea').style.filter = 'blur(' + blurRadius + 'px)';
-    }
-
-    var coins = 0;
-
-    function tapCoin(event) {
-        coins++;
-        document.getElementById('coins').innerText = coins;
-        window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
-
-        // Retrieve touch coordinates
-        var touchX = event.clientX || event.touches[0].clientX;
-        var touchY = event.clientY || event.touches[0].clientY;
-
-        // Create the +1 element
-        var plusOne = document.createElement('div');
-        plusOne.innerText = '+1';
-        plusOne.style.fontSize = '20px';
-        plusOne.className = 'plusOne';
-        plusOne.style.left = touchX + 'px';
-        plusOne.style.top = touchY + 'px';
-        plusOne.style.transform = 'translate(-50%, -50%)';
-        document.body.appendChild(plusOne);
-
-        // Animate the +1 element
-        setTimeout(function() {
-            plusOne.style.top = (touchY - 100) + 'px'; // Move upwards twice as much
-            plusOne.style.opacity = '0'; // Fade out
-        }, 100);
-
-        // Remove the +1 element after animation completes
-        setTimeout(function() {
-            document.body.removeChild(plusOne);
-        }, 200);
-
-        event.preventDefault(); // Prevent focusing the <a> tag
-    }
-
-    // Add touchstart event listener for multi-touch support
-    document.getElementById('gameArea').addEventListener('touchstart', function(event) {
-        for (var i = 0; i < event.touches.length; i++) {
-            tapCoin(event.touches[i]);
-        }
-    });
-
-    // Fallback for mouse click
-    document.getElementById('gameArea').addEventListener('click', tapCoin);
-</script>
-</body>
+      document
+        .getElementById("blackhole")
+        .addEventListener("touchend", function () {
+          this.style.transform = "translate(0, 0)";
+          this.classList.remove("tinted");
+        });
+    </script>
+    <script src="scripts.js"></script>
+  </body>
 </html>
