@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
       width++;
       progressBar.style.width = width + "%";
     }
-  }, 30);
+  }, 10);
 });
 function expandScreen() {
   window.Telegram.WebApp.expand();
@@ -47,7 +47,7 @@ function tapCoin(event) {
 
   // Animate the +1 element
   setTimeout(function (event) {
-    plusOne.style.top = touchY - 100 + "px"; // Move upwards twice as much
+    plusOne.style.top = touchY - 300 + "px"; // Move upwards twice as much
     plusOne.style.opacity = "0"; // Fade out
   }, 100);
 
@@ -68,3 +68,16 @@ document
 
 // Fallback for mouse click
 document.getElementById("gameArea").addEventListener("click", tapCoin);
+
+$(document).ready(function () {
+  $(".menu-item").click(function (e) {
+    e.preventDefault();
+    const target = $(this).data("target");
+
+    $(".content-container").removeClass("active");
+    $(target).addClass("active");
+
+    $(".menu-item").removeClass("active");
+    $(this).addClass("active");
+  });
+});
